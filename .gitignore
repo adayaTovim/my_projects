@@ -1,6 +1,11 @@
 # Prerequisites
 *.d
 
+# pic
+*.jpg
+*.jpeg
+*.ppm
+
 # Object files
 *.o
 *.ko
