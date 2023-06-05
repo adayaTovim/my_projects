@@ -1,0 +1,78 @@
+{
+    "bricks": [
+      {
+        "color": "red",
+        "i": 0,
+        "j": 0
+      },
+      {
+        "color": "red",
+        "i": 0,
+        "j": 1
+      },
+      {
+        "color": "red",
+        "i": 0,
+        "j": 2
+      },
+      {
+        "color": "red",
+        "i": 0,
+        "j": 3
+      },
+      {"color": "red",
+      "i": 0,
+      "j": 4
+      },
+      {
+        "color": "blue",
+        "i": 1,
+        "j": 0
+      },
+      {
+        "color": "blue",
+        "i": 1,
+        "j": 1
+      },
+      {
+        "color": "yellow",
+        "i": 1,
+        "j": 2
+      },
+      {
+        "color": "blue",
+        "i": 1,
+        "j": 3
+      },
+      {
+        "color": "blue",
+        "i": 1,
+        "j": 4
+      },
+      {
+        "color": "green",
+        "i": 2,
+        "j": 0
+      },
+      {
+        "color": "green",
+        "i": 2,
+        "j": 1
+      },
+      {
+        "color": "green",
+        "i": 2,
+        "j": 2
+      },
+      {
+        "color": "green",
+        "i": 2,
+        "j": 3
+      },
+      {
+        "color": "green",
+        "i": 2,
+        "j": 4
+      }
+    ]
+  }

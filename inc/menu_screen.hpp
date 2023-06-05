@@ -1,0 +1,35 @@
+#pragma once
+
+#include <SFML/Graphics.hpp>
+
+#include "screen.hpp"
+#include "font.hpp"
+
+namespace arkanoid{
+
+class MenuScreen {
+public:
+    MenuScreen() = delete;
+    explicit MenuScreen(sf::Vector2f a_screenSize, sf::RenderWindow& a_window);
+    MenuScreen(MenuScreen const& a_other) = delete;
+    MenuScreen& operator=(MenuScreen const& a_other) = delete;
+    ~MenuScreen() = default;
+
+
+    bool run() ;
+    bool draw();
+    
+    sf::FloatRect getBoundsPlayButton() const;
+    sf::FloatRect getBoundsExitButton() const;
+    sf::FloatRect getPlayBounding() const noexcept;
+    sf::FloatRect getExitBounding() const noexcept;  
+
+private:
+    sf::RenderWindow& m_window;
+    Font m_font;
+    sf::RectangleShape  m_menuScreen;
+    sf::RectangleShape m_playButton;
+    sf::RectangleShape m_exitButton;
+};
+
+} // arkanoid
