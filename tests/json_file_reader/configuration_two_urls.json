@@ -1,0 +1,10 @@
+{
+	"url" :
+	[
+		"https://harrypotter.fandom.com/wiki/Main_Page",
+		"https://harrypotter.fandom.com/wiki/Dark_wizard"
+	],
+	"mode" : "DFS",
+	"depth" : "2",
+	"pages" : "20"
+}

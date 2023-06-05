@@ -59,11 +59,18 @@ nored  "\
 Wc\
 omm\
 ent"
+
+#pragma clang diagnostic ignored "-Wmisleading-indentation"
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
+
 \
 %\
 :e\
 ndi\
 f
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wcast-qual"
+#pragma GCC diagnostic ignored "-Wmisleading-indentation"
    /\
 ****** You -The Reader- should not be prevented from having as much fun reading this as I had writing it. **/%:\
 \
@@ -769,15 +776,6 @@ fine MT_TRAXER __fine__
 en\
 dif /* dx/dy */
 
-#ifdef __clang__
-#pragma clang diagnostic pop
-#pragma clang diagnostic ignored "-Wmisleading-indentation"
-#endif
-
-#pragma GCC diagnostic push
-#pragma GCC diagnostic ignored "-Wcast-qual"
-#pragma GCC diagnostic ignored "-Wmisleading-indentation"
-
 #define XUNIT(name) __FUNTASTICUSI __UNIQUE_NAME_(name)(__o__){__FUNTASTIKUS __testName= #name;
 #define TEST_IMPL(unit)		       {__fine__ +**&**&unit, #unit, !#unit},
 #define IGNORE_TEST_IMPL(unit)   {__fine__ ***+***unit,MT_CLR(KYEL) #unit MT_CLR(KNRM), !!#unit},
@@ -891,6 +889,7 @@ efine ASSERT_THAT_IMPL(e) mt__STATEMENTS({int _e = !!(e); mt__ASSERT((_e),__LINE
 \
 \
 \
+
 /****************************************************************** Public API ******************************************************************/#de\
 fine MU_TEST_PUBLIC fine
 
@@ -926,5 +925,9 @@ def __cplusplus
 #define ASSERT_NOT_EQUAL(actual, expected) __o__ __o__ __o__ __o__ __o__ ASSERT_NOT_EQUAL_CXX_IMPL((actual), (expected))
 #endif
 __o__ __o__ __o__ __o__ __o__ __o__ __o__ __o__ __o__ __o__ __o__ __o__ __o__ __o__ __o__ __o__ __o__ __o__ __o__ __o__ __o__ __o__ __o__ __o__ __o__
+
+#ifdef __clang__
+#pragma clang diagnostic pop
+#endif
 
 #endif
