@@ -1,0 +1,25 @@
+# makefile intFunc
+
+TARGET= genListFunc.out
+CC= gcc
+CFLAGS= -ansi -g -pedantic
+OBJS= intFun.o intFun_test.o genList.o listItr.o
+
+$(TARGET): $(OBJS)
+	$(CC) -o $(TARGET) $(OBJS)
+
+listItr.o: listItr.c listItr.h
+	$(CC) $(CFLAGS) -c listItr.c
+
+genList.o: genList.c genList.h
+	$(CC) $(CFLAGS) -c genList.c
+	
+intFun_test.o: intFun_test.c list_functions.h
+	$(CC) $(CFLAGS) -c intFun_test.c
+
+intFun.o: intFun.c list_functions.h
+	$(CC) $(CFLAGS) -c intFun.c
+
+	
+clean:
+	rm -f $(TARGET) $(OBJS)
