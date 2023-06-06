@@ -22,7 +22,7 @@ void fillLUT(std::vector<int>& a_lut) {
     }
 }
 
-int countSetBits(int a_num, std::vector<int>& a_lut) {
+int countSetBits(int a_num, std::vector<int> const& a_lut) {
 	if(a_num < 0) {
 		throw std::invalid_argument("Input cannot be negative");
 	}
