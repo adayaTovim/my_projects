@@ -9,7 +9,6 @@ second bit and the bit before the MSB are swapped and so on.
 unsigned int reverseBits(unsigned int a_num)
 {
     unsigned int size = sizeof(a_num) * 8;
-    unsigned int mask = 1;
 
     for (unsigned int i = 0; i < size / 2; ++i) {
         unsigned int rightBit = a_num & (1 << i);
