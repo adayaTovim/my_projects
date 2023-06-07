@@ -15,6 +15,7 @@ int countBitPairs(int a_num)
 	bool prevIsOn;
 	bool isFirstBit = true;
 	int counter = 0;
+	// 	int size = sizeof(a_num) * 8; if i want to check all
 
 	for(int i = 0; i < 8; ++i) {
 		bool currIsOn = a_num & 1;

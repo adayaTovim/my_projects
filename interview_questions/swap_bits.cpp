@@ -10,7 +10,7 @@ unsigned int swapBits(unsigned int a_num) {
 		unsigned int first = a_num & (1 << i);
 		unsigned int second = a_num & (1 << (i + 1));
 
-		if(first != second) {
+		if(first != 0 && second == 0 || first == 0 && second != 0) {
 			a_num ^= (1 << i);
 			a_num ^= (1 << (i + 1));
 		}

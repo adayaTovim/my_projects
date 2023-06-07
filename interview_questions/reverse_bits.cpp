@@ -13,7 +13,7 @@ unsigned int reverseBits(unsigned int a_num)
     for (unsigned int i = 0; i < size / 2; ++i) {
         unsigned int rightBit = a_num & (1 << i);
         unsigned int leftBit = a_num & (1 << (size - i - 1));
-        if (leftBit != rightBit) {
+        if (leftBit != 0 && rightBit == 0 || leftBit == 0 && rightBit != 0) {
 			a_num ^= (1 << i);
 			a_num ^= 1 << (size - i - 1);
         }
