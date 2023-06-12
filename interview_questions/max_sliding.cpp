@@ -16,6 +16,7 @@ Output: [1]
 
 std::vector<int> maxSlidingWindow(std::vector<int> a_vector, int a_num)
 {
+	//naive algorithm
 	std::vector<int> result;
 	int size = a_vector.size();
 	if(a_num < 1 || a_num > size || size < 1) {
