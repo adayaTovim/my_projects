@@ -38,7 +38,7 @@ void printVector(const std::vector<int>& a_vector)
 		int num = *it;
         std::cout << num << " ";
 	}
-	// more way to write this
+	// another way to write this
 	// for (int num : a_vector){
 	// 	std::cout << num << " ";
     // }
