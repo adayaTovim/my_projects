@@ -9,8 +9,13 @@ nearest ([ 10, 7, 19, 3, 1, 12], 14, 3) → [ 10, 12, 19]*/
 
 std::vector<int> closestElements(const std::vector<int>& a_vec, int x, int n)
 {
-    if(n > a_vec.size()) {
-		n = a_vec.size();
+    int size = a_vec.size();
+	if(0 ==  size) {
+		throw std::invalid_argument("Empty vector");
+	}
+
+	if(n > size) {
+		n = size;
 	}
 
 	std::vector<std::pair<int, int>> diffPairs;
@@ -50,9 +55,12 @@ int main()
     std::vector<int> v = {10, 7, 19, 3, 1, 12};
     int x = 14;
     int n = 3;
-    std::vector<int> result = closestElements(v, x, n);
-
-	printVector(result);
+	try {
+    	std::vector<int> result = closestElements(v, x, n);
+		printVector(result);
+	} catch (const std::exception& e) {
+		std::cout<<"Error: "<< e.what()<<std::endl;
+	}
 
     return 0;
 }
