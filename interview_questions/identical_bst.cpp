@@ -77,28 +77,68 @@ public:
 		}
 	}
 
+	Node* getRoot() {return m_root;};
+
 private:
 	Node* m_root;
 };
 
-bool identicalBst(BST a_bst1, BST a_bst2)
+bool identicalBst(Node* a_root1, Node* a_root2)
 {
+    if (a_root1 == nullptr && a_root2 == nullptr) {
+        return true;
+    }
 
+    if (a_root1 == nullptr || a_root2 == nullptr) {
+        return false;
+    }
+
+    if (a_root1->getData() != a_root2->getData()) {
+        return false;
+    }
+
+    bool isLeftSubtreeIdentical = identicalBst(a_root1->getLeft(), a_root2->getLeft());
+
+    bool isRightSubtreeIdentical = identicalBst(a_root1->getRight(), a_root2->getRight());
+
+    return isLeftSubtreeIdentical && isRightSubtreeIdentical;
 }
 
 int main() {
-	BST bst;
-	bst.insert(1);
-	bst.insert(3);
-	bst.insert(6);
-	bst.insert(4);
-	bst.insert(7);
-	bst.insert(8);
-	bst.insert(10);
-	bst.insert(14);
-	bst.insert(13);
+	BST bst1;
+	bst1.insert(1);
+	bst1.insert(3);
+	bst1.insert(6);
+	bst1.insert(4);
+	bst1.insert(7);
+	bst1.insert(8);
+	bst1.insert(10);
+	bst1.insert(14);
+	bst1.insert(13);
 
-	bst.printInOrder();
+	std::cout << "bst1: " << std::endl;
+	bst1.printInOrder();
 	std::cout << "\n";
+
+	BST bst2;
+	bst2.insert(1);
+	bst2.insert(3);
+	bst2.insert(6);
+	bst2.insert(4);
+	bst2.insert(7);
+	bst2.insert(8);
+	bst2.insert(10);
+	bst2.insert(14);
+	bst2.insert(13);
+
+	std::cout << "bst2: " << std::endl;
+	bst2.printInOrder();
+	std::cout << "\n";
+
+	if( identicalBst(bst1.getRoot(), bst2.getRoot()) == true) {
+		std::cout << "The trees are identical" << std::endl;
+	} else {
+		std::cout << "The trees are Unidentical" << std::endl;
+	}
 	return 0;
 }
