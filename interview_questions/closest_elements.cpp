@@ -52,11 +52,31 @@ void printVector(const std::vector<int>& a_vector)
 
 int main()
 {
-    std::vector<int> v = {10, 7, 19, 3, 1, 12};
+	std::vector<int> v = {10, 7, 19, 3, 1, 12};
     int x = 14;
     int n = 3;
 	try {
     	std::vector<int> result = closestElements(v, x, n);
+		printVector(result);
+	} catch (const std::exception& e) {
+		std::cout<<"Error: "<< e.what()<<std::endl;
+	}
+
+    std::vector<int> v2 = {};
+    int x2 = 14;
+    int n2 = 3;
+	try {
+    	std::vector<int> result = closestElements(v2, x2, n2);
+		printVector(result);
+	} catch (const std::exception& e) {
+		std::cout<<"Error: "<< e.what()<<std::endl;
+	}
+
+	std::vector<int> v3 = {1, 2, 3, 4};
+    int x3 = 2;
+    int n3 = 5;
+	try {
+    	std::vector<int> result = closestElements(v3, x3, n3);
 		printVector(result);
 	} catch (const std::exception& e) {
 		std::cout<<"Error: "<< e.what()<<std::endl;
