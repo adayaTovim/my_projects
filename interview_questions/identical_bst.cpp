@@ -75,13 +75,108 @@ public:
 
 			current = current->getRight();
 		}
+		std::cout<<"\n";
 	}
+
+	Node* remove(Node* a_root, int a_data) {
+		if (a_root == nullptr) {
+			return a_root;
+		}
+
+		Node* parent = nullptr;
+		Node* current = a_root;
+
+		while (current != nullptr) {
+			if (a_data < current->getData()) {
+				parent = current;
+				current = current->getLeft();
+			} else if (a_data > current->getData()) {
+				parent = current;
+				current = current->getRight();
+			} else {
+				// Case 1: Node to remove has no children
+				if (current->getLeft() == nullptr && current->getRight() == nullptr) {
+					return removeNodeWithNoChildren(a_root, parent, current);
+				}
+				// Case 2: Node to remove has both left and right children
+				else if (current->getLeft() != nullptr && current->getRight() != nullptr) {
+					return removeNodeWithTwoChildren(a_root, parent, current);
+				}
+				// Case 3: Node to remove has only one child
+				else {
+					return removeNodeWithOneChild(a_root, parent, current);
+				}
+			}
+		}
+
+		return a_root;
+	}
+
 
 	Node* getRoot() {return m_root;};
 
 private:
 	Node* m_root;
 };
+
+Node* removeNodeWithNoChildren(Node* a_root, Node* a_parent, Node* a_current) {
+    if (a_parent == nullptr) {
+        // Node to remove is the root
+        delete a_current;
+        a_root = nullptr;
+    } else if (a_parent->getLeft() == a_current) {
+        // Node to remove is the left child of its parent
+        delete a_current;
+        a_parent->setLeft(nullptr);
+    } else {
+        // Node to remove is the right child of its parent
+        delete a_current;
+        a_parent->setRight(nullptr);
+    }
+
+    return a_root;
+}
+
+Node* removeNodeWithTwoChildren(Node* a_root, Node* a_parent, Node* a_current) {
+    Node* successorParent = a_current;
+    Node* successor = a_current->getRight();
+
+    while (successor->getLeft() != nullptr) {
+        successorParent = successor;
+        successor = successor->getLeft();
+    }
+
+    if (successorParent != a_current) {
+        successorParent->setLeft(successor->getRight());
+    } else {
+        successorParent->setRight(successor->getRight());
+    }
+
+    a_current->setData(successor->getData());
+    delete successor;
+
+    return a_root;
+}
+
+Node* removeNodeWithOneChild(Node* a_root, Node* a_parent, Node* a_current) {
+    Node* child = (a_current->getLeft() != nullptr) ? a_current->getLeft() : a_current->getRight();
+
+    if (a_parent == nullptr) {
+        // Node to remove is the root
+        delete a_current;
+        a_root = child;
+    } else if (a_parent->getLeft() == a_current) {
+        // Node to remove is the left child of its parent
+        delete a_current;
+        a_parent->setLeft(child);
+    } else {
+        // Node to remove is the right child of its parent
+        delete a_current;
+        a_parent->setRight(child);
+    }
+
+    return a_root;
+}
 
 bool identicalBst(Node* a_root1, Node* a_root2)
 {
@@ -140,5 +235,24 @@ int main() {
 	} else {
 		std::cout << "The trees are Unidentical" << std::endl;
 	}
+
+	std::cout << "\nTest remove node" << std::endl;
+	BST bst3;
+    bst3.insert(1);
+	bst3.insert(3);
+	bst3.insert(6);
+	bst3.insert(4);
+	bst3.insert(7);
+	bst3.insert(8);
+	bst3.insert(10);
+	bst3.insert(14);
+	bst3.insert(13);
+
+	std::cout << "before remove" << std::endl;
+    bst3.printInOrder();
+    bst3.remove(bst3.getRoot(), 1);
+
+	std::cout << "after remove" << std::endl;
+    bst3.printInOrder();
 	return 0;
 }
