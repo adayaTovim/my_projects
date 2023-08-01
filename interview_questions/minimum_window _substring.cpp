@@ -26,42 +26,80 @@ Since the largest window of s only has one 'a', return empty string.
 #include <string>
 #include <climits>
 #include <iostream>
+#include <unordered_map>
 
-std::string minWindow(std::string s, std::string t)
-{
-        std::vector<int> map(128,0);
-        for(auto c: t) {
-            map[c]++;
+// std::string minWindow(std::string s, std::string t)
+// {
+//         std::vector<int> map(128,0);
+//         for(auto c: t) {
+//             map[c]++;
+//         }
+//         int counter = t.size();
+//         int begin = 0;
+//         int end = 0;
+//         int d = INT_MAX;
+//         int head = 0;
+//         while(end < s.size()){
+// 			char currentCharacter = s[end];
+// 			map[currentCharacter]--; // Decrease the count of the current character in the map
+// 			if (map[currentCharacter] >= 0) {
+// 				counter--; // If the count is still greater than or equal to 0, it means the character is in 't', so decrement the counter.
+// 			}
+// 			end++; // Move the 'end' pointer to the next character
+
+//             while(counter == 0){
+//                 if(end-begin < d) {
+//                     head = begin;
+//                     d = end-head;
+//                 }
+//                 char currentCharacter = s[begin];
+// 				map[currentCharacter]++; // Increase the count of the current character in the map
+// 				if (map[currentCharacter] > 0) {
+// 					counter++; // If the count becomes greater than 0, it means the character is no longer in 't', so increment the counter.
+// 				}
+// 				begin++; // Move the 'begin' pointer to the next character
+//         	}
+// 		}
+//         return d == INT_MAX ? "" : s.substr(head, d);
+// }
+
+std::string minWindow(std::string s, std::string t) {
+    std::unordered_map<char, int> freq;
+    for (char c : t) {
+        freq[c]++;
+    }
+
+    int left = 0;
+    int right = 0;
+    int counter = t.size();
+    int minLen = INT_MAX;
+    int minStart = 0;
+
+    while (right < s.size()) {
+        char rightChar = s[right];
+        if (freq[rightChar] > 0) {
+            counter--;
         }
-        int counter = t.size();
-        int begin = 0;
-        int end = 0;
-        int d = INT_MAX;
-        int head = 0;
-        while(end < s.size()){
-			char currentCharacter = s[end];
-			map[currentCharacter]--; // Decrease the count of the current character in the map
-			if (map[currentCharacter] >= 0) {
-				counter--; // If the count is still greater than or equal to 0, it means the character is in 't', so decrement the counter.
-			}
-			end++; // Move the 'end' pointer to the next character
+        freq[rightChar]--;
+        right++;
 
-            while(counter == 0){
-                if(end-begin < d) {
-                    head = begin;
-                    d = end-head;
-                }
-                char currentCharacter = s[begin];
-				map[currentCharacter]++; // Increase the count of the current character in the map
-				if (map[currentCharacter] > 0) {
-					counter++; // If the count becomes greater than 0, it means the character is no longer in 't', so increment the counter.
-				}
-				begin++; // Move the 'begin' pointer to the next character
-        	}
-		}
-        return d == INT_MAX ? "" : s.substr(head, d);
+        while (counter == 0) {
+            if (right - left < minLen) {
+                minLen = right - left;
+                minStart = left;
+            }
+
+            char leftChar = s[left];
+            freq[leftChar]++;
+            if (freq[leftChar] > 0) {
+                counter++;
+            }
+            left++;
+        }
+    }
+
+    return minLen == INT_MAX ? "" : s.substr(minStart, minLen);
 }
-
 
 int main()
 {
