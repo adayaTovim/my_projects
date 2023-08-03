@@ -55,6 +55,39 @@ std::vector<std::string> lettersCombinations(std::string a_num)
     return result;
 }
 
+//with recursion
+
+// void backtrack(std::vector<std::string>& result, std::string& currentCombination, int index, const std::string& a_num) {
+//     if (index == a_num.size()) {
+//         result.push_back(currentCombination);
+//         return;
+//     }
+
+//     int num = a_num[index] - '0';
+//     auto it = digitsMap.find(num);
+//     if (it != digitsMap.end()) {
+//         const std::string& letters = it->second;
+//         for (char letter : letters) {
+//             currentCombination[index] = letter;
+//             backtrack(result, currentCombination, index + 1, a_num);
+//         }
+//     }
+// }
+
+// std::vector<std::string> lettersCombinations(std::string a_num)
+// {
+//     std::vector<std::string> result;
+
+//     if (a_num.empty()) {
+//         return result;
+//     }
+
+//     std::string currentCombination(a_num.length(), ' ');
+//     backtrack(result, currentCombination, 0, a_num);
+
+//     return result;
+// }
+
 void printResult(const std::string& a_digit, const std::vector<std::string>& a_vec)
 {
 	std::cout << "For digits: " << a_digit << "\nall possible letter combinations:\n[ ";
