@@ -5,6 +5,7 @@
 *.jpg
 *.jpeg
 *.ppm
+*.txt
 
 # Object files
 *.o
