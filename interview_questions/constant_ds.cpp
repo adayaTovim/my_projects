@@ -58,3 +58,7 @@ int main()
     return 0;
 }
 
+// another way without swap between vectors is to use clock
+
+
+
