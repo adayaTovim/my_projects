@@ -1,3 +1,6 @@
+//write program to fill an array of size 100 with random values between 1 and 100, ensuring that each value is unique within the array
+
+
 #include <array>
 #include <iostream>
 #include <cstdlib>
