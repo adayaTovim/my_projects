@@ -7,7 +7,7 @@
 
 namespace arkanoid {
 
-class InputScreen {
+class InputScreen : public ScreenState{
 public:
     InputScreen() = delete;
     explicit InputScreen(sf::Vector2f a_screenSize, sf::RenderWindow& a_window);
@@ -15,7 +15,7 @@ public:
     InputScreen& operator=(InputScreen const& a_other) = delete;
     ~InputScreen() = default;
 
-    bool run() ;
+    std::optional<std::tuple<int, int, bool>> run(std::optional<std::string> a_level);
     std::string getPlayerName(sf::RenderWindow& a_window);
     bool draw();
 

@@ -51,14 +51,14 @@ InputScreen::InputScreen(sf::Vector2f a_screenSize, sf::RenderWindow& a_window)
 
 }
 
-bool InputScreen::run()
+std::optional<std::tuple<int, int, bool>> InputScreen::run(std::optional<std::string> a_level)
 {
     while (m_window.isOpen()) {
         if (draw()) {
-            return true;
+            return std::make_tuple(0, 0, true);
         }
     }
-	return false;
+	return std::make_tuple(0, 0, false);
 }
 
 bool InputScreen::draw()
@@ -97,7 +97,7 @@ bool InputScreen::draw()
 
 	if(inputUpdated) {
 		m_text.setString(m_input);
-		m_window.draw(m_text);	
+		m_window.draw(m_text);
 	}
 	m_window.display();
 

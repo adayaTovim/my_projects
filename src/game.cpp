@@ -37,7 +37,8 @@ void Game::run() {
                     bool isTop10 = m_top10Screen.isTop10(score, time);
                     if (isTop10) {
                         m_inputScreen.run();
-                        std::string WinnerName = m_inputScreen.getInput();
+                        auto returnValue2 = m_inputScreen.getInput();
+						bool WinnerName = std::get<2>(returnValue2);
                         m_top10Screen.addTop10(score, time, WinnerName);
                     }
                     levelIndex = 0;
