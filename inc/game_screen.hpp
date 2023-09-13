@@ -19,7 +19,7 @@ public:
     GameScreen& operator=(GameScreen const& a_other) = delete;
     ~GameScreen() = default;
 
-    std::tuple<int, int, bool> run(std::string a_level);
+    std::optional<std::tuple<int, int, bool>>  run(std::string a_level);
 
     void draw();
     void drawLevelUp();

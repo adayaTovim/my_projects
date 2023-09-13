@@ -23,7 +23,7 @@ void Game::run() {
     while (m_window.isOpen()) {
         if (levelIndex == 0) {
             auto returnValue = m_menuScreen.run();
-			bool gameStarted = std::get<0>(returnValue);
+			bool gameStarted = std::get<2>(returnValue);
             if (!gameStarted) {
                 m_window.close();
                 return;
