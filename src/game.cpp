@@ -7,13 +7,13 @@
 namespace arkanoid {
 
 
-Game::Game() 
+Game::Game()
 : m_window(sf::VideoMode(1280, 720), "Arkanoid!")
 , m_gameScreen(sf::Vector2f(1280, 720), m_window)
 , m_menuScreen(sf::Vector2f(1280, 720), m_window)
 , m_top10Screen(sf::Vector2f(1280, 720), m_window)
 , m_inputScreen(sf::Vector2f(1280, 720), m_window)
-{   
+{
 }
 
 void Game::run() {
@@ -22,7 +22,8 @@ void Game::run() {
 
     while (m_window.isOpen()) {
         if (levelIndex == 0) {
-            bool gameStarted = m_menuScreen.run();
+            auto returnValue = m_menuScreen.run();
+			bool gameStarted = std::get<0>(returnValue);
             if (!gameStarted) {
                 m_window.close();
                 return;
@@ -46,7 +47,7 @@ void Game::run() {
                     }
                 }
                 m_gameScreen.drawLevelUp();
-                ++levelIndex;  
+                ++levelIndex;
             }
         }
         else if (pressEsc) {

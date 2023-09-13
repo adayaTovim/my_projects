@@ -5,7 +5,7 @@
 namespace arkanoid {
 
 namespace {
-    
+
 // sf::RectangleShape initscreen(sf::Vector2f a_screenSize) {
 //     sf::RectangleShape rectangle(a_screenSize);
 //     //sf::Texture texture;
@@ -48,14 +48,14 @@ void drawTexts(sf::RenderTarget& a_target, sf::Vector2f a_playPosition, sf::Vect
     if (!font.loadFromFile("arial.ttf"))
     {
         std::cerr << "Error: Failed to load font 'arial.ttf'" << std::endl;
-    }    
+    }
     sf::Text playText("PLAY", font, 24);
     playText.setFillColor(sf::Color::White);
     playText.setStyle(sf::Text::Bold);
     playText.setOrigin(playText.getLocalBounds().width / 2, playText.getLocalBounds().height / 2);
     playText.setPosition(a_playPosition);
 
-   
+
     sf::Text exitText("EXIT", font, 24);
     exitText.setFillColor(sf::Color::White);
     exitText.setStyle(sf::Text::Bold);
@@ -67,11 +67,11 @@ void drawTexts(sf::RenderTarget& a_target, sf::Vector2f a_playPosition, sf::Vect
     welcomeText.setStyle(sf::Text::Bold);
     welcomeText.setOrigin(welcomeText.getLocalBounds().width / 2, exitText.getLocalBounds().height / 2);
     welcomeText.setPosition(a_welcomePosition);
-   
+
     a_target.draw(playText);
     a_target.draw(exitText);
     a_target.draw(welcomeText);
-} 
+}
 
 } // namespace
 
@@ -90,16 +90,17 @@ MenuScreen::MenuScreen(sf::Vector2f a_screenSize, sf::RenderWindow& a_window)
 }
 
 
-bool MenuScreen::run() {
+std::optional<std::tuple<bool, size_t, double, std::string>> MenuScreen::run() {
     while (m_window.isOpen()) {
         if (draw()) {
-            return true;
-        }    
+            return std::make_tuple(true, 0, 0.0, "");
+        }
     }
-    return false;
+    return std::make_tuple(false, 0, 0.0, "");
 }
 
-bool MenuScreen::draw()  
+
+bool MenuScreen::draw()
 {
     sf::Event event;
 		while (m_window.pollEvent(event)) {
@@ -111,7 +112,7 @@ bool MenuScreen::draw()
 					sf::Vector2i mousePos = sf::Mouse::getPosition(m_window);
 					sf::FloatRect startButtonBounds = getPlayBounding();
 					sf::FloatRect exitButtonBounds = getExitBounding();
-					
+
 					if (startButtonBounds.contains(mousePos.x, mousePos.y)) {
 						return true;
 					}
@@ -125,7 +126,7 @@ bool MenuScreen::draw()
     sf::Vector2f playPosition(m_menuScreen.getPosition().x + m_menuScreen.getSize().x / 2, m_menuScreen.getPosition().y + m_menuScreen.getSize().y / 2 - m_playButton.getSize().y + 20);
     sf::Vector2f exitPosition(m_menuScreen.getPosition().x + m_menuScreen.getSize().x / 2, m_menuScreen.getPosition().y + m_menuScreen.getSize().y / 2 + 70);
     sf::Vector2f welcomePosition(m_menuScreen.getPosition().x + m_menuScreen.getSize().x / 2, m_menuScreen.getPosition().y + m_menuScreen.getSize().y / 4);
-    
+
     m_window.clear();
     m_window.draw(m_menuScreen);
     m_window.draw(m_playButton);
@@ -137,22 +138,22 @@ bool MenuScreen::draw()
 }
 
 
-sf::FloatRect MenuScreen::getBoundsPlayButton() const 
+sf::FloatRect MenuScreen::getBoundsPlayButton() const
 {
     return m_playButton.getGlobalBounds();
 }
 
-sf::FloatRect MenuScreen::getBoundsExitButton() const 
+sf::FloatRect MenuScreen::getBoundsExitButton() const
 {
     return m_exitButton.getGlobalBounds();
 }
 
-sf::FloatRect MenuScreen::getPlayBounding() const noexcept 
+sf::FloatRect MenuScreen::getPlayBounding() const noexcept
 {
     return m_playButton.getGlobalBounds();
 }
 
-sf::FloatRect MenuScreen::getExitBounding() const noexcept 
+sf::FloatRect MenuScreen::getExitBounding() const noexcept
 {
     return m_exitButton.getGlobalBounds();
 }

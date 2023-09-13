@@ -15,16 +15,14 @@ SOURCES_DIR = ../../src
 OBJECTS = $(SOURCES_DIR)/menu_screen.cpp \
           $(SOURCES_DIR)/font.cpp \
 
-
-
-SOURCE = utest.cpp $(OBJECTS) 
+SOURCE = utest.cpp $(OBJECTS)
 TARGET = utest
 
 all: $(TARGET)
 
 utest : $(SOURCE)
 
-check : $(TARGET) 
+check : $(TARGET)
 	@./$(TARGET) -v
 
 recheck: clean check

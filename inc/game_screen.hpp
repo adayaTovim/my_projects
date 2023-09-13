@@ -12,7 +12,7 @@ namespace arkanoid{
 
 using brickVector = std::vector<Brick>;
 
-class GameScreen {
+class GameScreen : public ScreenState{
 public:
     explicit GameScreen(sf::Vector2f a_screenSize, sf::RenderWindow& a_window);
     GameScreen(GameScreen const& a_other) = delete;

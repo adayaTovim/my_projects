@@ -7,7 +7,7 @@
 
 namespace arkanoid{
 
-class MenuScreen {
+class MenuScreen : public ScreenState{
 public:
     MenuScreen() = delete;
     explicit MenuScreen(sf::Vector2f a_screenSize, sf::RenderWindow& a_window);
@@ -16,13 +16,13 @@ public:
     ~MenuScreen() = default;
 
 
-    bool run() ;
+    std::optional<std::tuple<bool, size_t, double, std::string>> run();
     bool draw();
-    
+
     sf::FloatRect getBoundsPlayButton() const;
     sf::FloatRect getBoundsExitButton() const;
     sf::FloatRect getPlayBounding() const noexcept;
-    sf::FloatRect getExitBounding() const noexcept;  
+    sf::FloatRect getExitBounding() const noexcept;
 
 private:
     sf::RenderWindow& m_window;
@@ -33,3 +33,4 @@ private:
 };
 
 } // arkanoid
+
