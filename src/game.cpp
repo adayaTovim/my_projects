@@ -42,7 +42,8 @@ void Game::run() {
                         m_top10Screen.addTop10(score, time, WinnerName);
                     }
                     levelIndex = 0;
-                    bool returnMenu = m_top10Screen.run();
+                    auto returnValue3 = m_top10Screen.run();
+					bool returnMenu = std::get<2>(returnValue3);
                     if (returnMenu == true) {
                         continue;
                     }

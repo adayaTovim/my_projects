@@ -1,15 +1,15 @@
 #include "top10_screen.hpp"
+#include "screen.hpp"
 
-
-int main() 
+int main()
 {
 	using namespace arkanoid;
 
 
     sf::RenderWindow window(sf::VideoMode(1280, 720), "My Window");
     Top10Screen top10screen(sf::Vector2f(1280, 720), window);
-    top10screen.run();
-    
+    top10screen.run(std::nullopt);
+
     // Test case 1: create a TopScores object, add 10 scores and verify the size and order of the scores
 
     top10screen.addTop10(200, 120, "Player1");

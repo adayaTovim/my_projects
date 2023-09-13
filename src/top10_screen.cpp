@@ -27,7 +27,7 @@ void drawButtonText(sf::RenderTarget& a_target)
     if (!font.loadFromFile("arial.ttf"))
     {
         std::cerr << "Error: Failed to load font 'arial.ttf'" << std::endl;
-    }    
+    }
     sf::Text headerText("Return", font, 30);
     headerText.setFillColor(sf::Color::White);
     headerText.setOutlineColor(sf::Color::Black);
@@ -45,7 +45,7 @@ void drawHeaderText(sf::RenderTarget& a_target)
     if (!font.loadFromFile("arial.ttf"))
     {
         std::cerr << "Error: Failed to load font 'arial.ttf'" << std::endl;
-    }    
+    }
     sf::Text headerText("Top 10 Scores", font, 50);
     headerText.setFillColor(sf::Color::White);
     headerText.setOutlineColor(sf::Color(255, 0, 102));
@@ -90,7 +90,7 @@ void drawScoreTexts(sf::RenderTarget& a_target, sf::Vector2f a_scorePosition)
     std::vector<Winner> scores = readFromFile();
 
     // Set the position and size of each score text
-    for (std::vector<Winner>::size_type i = 0; i < scores.size() && i < 10; i++) 
+    for (std::vector<Winner>::size_type i = 0; i < scores.size() && i < 10; i++)
     {
         std::string name = scores[i].getName();
         int score = scores[i].getScore();
@@ -105,7 +105,7 @@ void drawScoreTexts(sf::RenderTarget& a_target, sf::Vector2f a_scorePosition)
 
 } // namespace
 
-Top10Screen::Top10Screen(sf::Vector2f a_screenSize, sf::RenderWindow& a_window) 
+Top10Screen::Top10Screen(sf::Vector2f a_screenSize, sf::RenderWindow& a_window)
 : m_window(a_window)
 , m_font()
 , m_top10Screen(a_screenSize)
@@ -119,16 +119,16 @@ Top10Screen::Top10Screen(sf::Vector2f a_screenSize, sf::RenderWindow& a_window)
 
 }
 
-bool Top10Screen::run() {
+std::optional<std::tuple<int, int, bool>> Top10Screen::run(std::optional<std::string> a_level) {
     while (m_window.isOpen()) {
         if (draw()) {
-            return true;
-        }    
+            return std::make_tuple(0, 0, true);
+        }
     }
-    return false;
+    return std::make_tuple(0, 0, false);
 }
 
-bool Top10Screen::draw()  
+bool Top10Screen::draw()
 {
     sf::Event event;
     while (m_window.pollEvent(event)) {
@@ -138,7 +138,7 @@ bool Top10Screen::draw()
         else if (event.type == sf::Event::MouseButtonPressed) {
             if (event.mouseButton.button == sf::Mouse::Left) {
                 sf::Vector2i mousePos = sf::Mouse::getPosition(m_window);
-                sf::FloatRect returnButton = getBoundReturnButton(); 
+                sf::FloatRect returnButton = getBoundReturnButton();
                 if (returnButton.contains(mousePos.x, mousePos.y)) {
                     return true;
                 }
@@ -147,7 +147,7 @@ bool Top10Screen::draw()
     }
 	m_window.clear();
     m_window.draw(m_top10Screen);
-    
+
     m_window.draw(m_returnButton);
     drawHeaderText(m_window);
     drawButtonText(m_window);
@@ -155,9 +155,9 @@ bool Top10Screen::draw()
     sf::Vector2f scorePosition(m_top10Screen.getPosition().x + m_top10Screen.getSize().x / 2, m_top10Screen.getPosition().y + m_top10Screen.getSize().y / 2 - m_returnButton.getSize().y + 20);
     drawScoreTexts(m_window, scorePosition);
 
-    //m_window.clear();  
+    //m_window.clear();
     m_window.display();
-    
+
     return false;
 }
 
@@ -172,7 +172,7 @@ void Top10Screen::saveToFile() const {
     file.close();
 }
 
-bool Top10Screen::isTop10(int a_score, int a_time) const 
+bool Top10Screen::isTop10(int a_score, int a_time) const
 {
     if (m_top10.empty()) {
         return true;
@@ -180,8 +180,8 @@ bool Top10Screen::isTop10(int a_score, int a_time) const
 
     if (m_top10.size() < NUM_SCORES) {
         return true;
-    } 
-    
+    }
+
     else {
         // compare the new score with the last element of m_top10
         const Winner last = m_top10.back();
@@ -197,11 +197,11 @@ bool Top10Screen::isTop10(int a_score, int a_time) const
             }
         }
     }
-    
+
     return false;
 }
 
-void Top10Screen::addTop10(int a_score, int a_time, const std::string& a_name) 
+void Top10Screen::addTop10(int a_score, int a_time, const std::string& a_name)
 {
     Winner winner(a_score, a_time, a_name);
 
@@ -210,12 +210,12 @@ void Top10Screen::addTop10(int a_score, int a_time, const std::string& a_name)
             m_top10.pop_back();
         }
         m_top10.push_back(winner);
-        sortScores();  
+        sortScores();
         saveToFile();
     }
 }
 
-void Top10Screen::sortScores() 
+void Top10Screen::sortScores()
 {
     std::sort(m_top10.rbegin(), m_top10.rend(), [](const auto& a, const auto& b) {
         if (a.getScore() != b.getScore()) {
@@ -226,15 +226,14 @@ void Top10Screen::sortScores()
 }
 
 
-const std::vector<Winner>& Top10Screen::getScores() const 
+const std::vector<Winner>& Top10Screen::getScores() const
 {
     return m_top10;
 }
 
-sf::FloatRect Top10Screen::getBoundReturnButton() const 
+sf::FloatRect Top10Screen::getBoundReturnButton() const
 {
     return m_returnButton.getGlobalBounds();
 }
 
 } //arkanoid
-   

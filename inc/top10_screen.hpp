@@ -7,10 +7,10 @@
 #include "winner.hpp"
 
 namespace arkanoid {
-    
+
 static const int NUM_SCORES = 10;
 
-class Top10Screen  {
+class Top10Screen : public ScreenState{
 public:
     Top10Screen() = delete;
     explicit Top10Screen(sf::Vector2f a_screenSize, sf::RenderWindow& a_window);
@@ -18,7 +18,7 @@ public:
     Top10Screen& operator=(Top10Screen const& a_other) = delete;
     ~Top10Screen() = default;
 
-    bool run();
+    std::optional<std::tuple<int, int, bool>> run(std::optional<std::string> a_level);
     bool draw();
 
     bool isTop10(int a_score, int a_time) const;
