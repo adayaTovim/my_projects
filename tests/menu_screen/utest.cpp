@@ -8,7 +8,7 @@ int main()
 
     sf::RenderWindow window(sf::VideoMode(1280, 720), "My Window");
     MenuScreen menuScreen(sf::Vector2f(1280, 720), window);
-    menuScreen.run();
+    menuScreen.run(std::nullopt);
 
     // std::string input = menuScreen.getInput();
     // std::cout << "Input: " << input << std::endl;

@@ -53,7 +53,7 @@ brickVector initializeBricks(const std::string& a_fileName)
 } // namespace
 
 
-GameScreen::GameScreen(sf::Vector2f a_screenSize, sf::RenderWindow& a_window) 
+GameScreen::GameScreen(sf::Vector2f a_screenSize, sf::RenderWindow& a_window)
 : m_window(a_window)
 , m_gameScreen(a_screenSize)
 , m_ball(0.2,0.7)
@@ -66,44 +66,44 @@ GameScreen::GameScreen(sf::Vector2f a_screenSize, sf::RenderWindow& a_window)
     m_gameScreen.setPosition(0, 0);
 }
 
-std::tuple<int, int, bool> GameScreen::run(std::string a_level) {
-    bool gameStarted = false; 
+std::optional<std::tuple<int, int, bool>> GameScreen::run(std::optional<std::string> a_level) {
+    bool gameStarted = false;
     bool gameOver = false;
     bool playButton = true;
     bool playerWin = false;
 
     m_ball.resetPosition();
     m_player.resetGame();
-    m_bricks = initializeBricks(a_level);
+    m_bricks = initializeBricks(a_level.value());
 
     while (m_window.isOpen()) {
         handleEvents(gameStarted, playButton, gameOver);
-        if(playButton == false) {
+        if (playButton == false) {
             break;
         }
         if (playButton && !playerWin) {
-            if (gameStarted && !gameOver && playButton) { 
+            if (gameStarted && !gameOver && playButton) {
                 handleBall(gameOver, playButton, playerWin);
-                m_player.update(); 
+                m_player.update();
                 if (playerWin == true) {
                     break;
                 }
             }
-            
         }
         draw();
     }
     return std::make_tuple(m_player.getTime(), m_player.getScore(), playButton);
 }
 
+
 void GameScreen::draw() {
     m_window.clear();
-    
+
     m_window.draw(m_gameScreen);
     m_player.draw(m_window);
     m_ball.draw(m_window);
     m_window.draw(m_ball.getBall());
-    
+
     for (auto const& brick : m_bricks) {
         brick.draw(m_window);
     }
@@ -111,7 +111,7 @@ void GameScreen::draw() {
     m_window.display();
 }
 
-void GameScreen::handleEvents(bool& a_gameStarted, bool& a_playButton, bool& a_gameOver) 
+void GameScreen::handleEvents(bool& a_gameStarted, bool& a_playButton, bool& a_gameOver)
 {
     sf::Event event;
     while (m_window.pollEvent(event)) {
@@ -134,13 +134,13 @@ void GameScreen::handleEvents(bool& a_gameStarted, bool& a_playButton, bool& a_g
             }
         }
 
-        if (!a_gameStarted && sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) { 
+        if (!a_gameStarted && sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) {
             a_gameStarted = true;
         }
     }
 }
 
-void GameScreen::handleBall(bool& a_gameOver, bool& a_playButton, bool& a_playerWin) 
+void GameScreen::handleBall(bool& a_gameOver, bool& a_playButton, bool& a_playerWin)
 {
     m_ball.setPosition(m_ball.getPosition().x + m_ball.getXVelocity(), m_ball.getPosition().y + m_ball.getYVelocity());
 
@@ -158,14 +158,14 @@ void GameScreen::handleBall(bool& a_gameOver, bool& a_playButton, bool& a_player
         m_player.updateLives(-1);
         if(m_player.getLives() == 0) {
             m_player.draw(m_window);
-            m_window.display(); 
-            sf::sleep(sf::seconds(5)); 
-            
+            m_window.display();
+            sf::sleep(sf::seconds(5));
+
             a_gameOver = true;
             a_playButton = false;
         }
     }
-    
+
     if(m_ball.getBounds().intersects(m_player.getBounds())) {
         m_ball.setYVelocity(m_ball.getYVelocity() * (-1));
     }
@@ -182,9 +182,9 @@ void GameScreen::handleBall(bool& a_gameOver, bool& a_playButton, bool& a_player
             }
             if(bricksAreEmpty()) {
                 m_player.draw(m_window);
-                m_window.display(); 
+                m_window.display();
                 m_player.draw(m_window);
-                m_window.display(); 
+                m_window.display();
                 a_playerWin = true;
                 a_playButton = false;
             }
@@ -192,7 +192,7 @@ void GameScreen::handleBall(bool& a_gameOver, bool& a_playButton, bool& a_player
     }
 }
 
-bool GameScreen::bricksAreEmpty() const 
+bool GameScreen::bricksAreEmpty() const
 {
     for (const auto& brick : m_bricks) {
         if (!brick.isUnbreakable()) {
@@ -202,17 +202,17 @@ bool GameScreen::bricksAreEmpty() const
     return true;
 }
 
-sf::RectangleShape const& GameScreen::getScreen() const 
+sf::RectangleShape const& GameScreen::getScreen() const
 {
     return m_gameScreen;
 }
 
-sf::Vector2f const& GameScreen::getPosition() const 
+sf::Vector2f const& GameScreen::getPosition() const
 {
     return m_gameScreen.getPosition();
 }
 
-sf::Vector2f const& GameScreen::getSize() const 
+sf::Vector2f const& GameScreen::getSize() const
 {
     return m_gameScreen.getSize();
 }
@@ -221,14 +221,14 @@ sf::Vector2f const& GameScreen::getSize() const
 void GameScreen::drawLevelUp() {
     m_player.drawLevelUp(m_window);
     m_window.display();
-    sf::sleep(sf::seconds(5)); 
+    sf::sleep(sf::seconds(5));
 
 }
 
 void GameScreen::drawWin() {
     m_player.drawWin(m_window);
     m_window.display();
-    sf::sleep(sf::seconds(5)); 
+    sf::sleep(sf::seconds(5));
 
 }
 

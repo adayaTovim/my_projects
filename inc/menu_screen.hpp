@@ -16,7 +16,7 @@ public:
     ~MenuScreen() = default;
 
 
-    std::optional<std::tuple<int, int, bool>>  run();
+    std::optional<std::tuple<int, int, bool>>  run(std::optional<std::string> a_level);
     bool draw();
 
     sf::FloatRect getBoundsPlayButton() const;

@@ -90,7 +90,7 @@ MenuScreen::MenuScreen(sf::Vector2f a_screenSize, sf::RenderWindow& a_window)
 }
 
 
-std::optional<std::tuple<int, int, bool>> MenuScreen::run() {
+std::optional<std::tuple<int, int, bool>> MenuScreen::run(std::optional<std::string> a_level) {
     while (m_window.isOpen()) {
         if (draw()) {
             return std::make_tuple(0, 0, true);
