@@ -21,8 +21,6 @@ void Game::run() {
     std::vector<std::string> levels = {"level1.json", "level2.json", "level3.json"};
     int levelIndex = 0;
 
-	//m_currentScreen = new MenuScreen(sf::Vector2f(1280, 720), m_window);
-
     while (m_window.isOpen()) {
 		setScreen(new MenuScreen(sf::Vector2f(1280, 720), m_window));
         if (levelIndex == 0) {
@@ -73,3 +71,4 @@ void Game::run() {
 }
 
 } //arkanoid
+
