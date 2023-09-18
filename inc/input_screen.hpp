@@ -19,7 +19,7 @@ public:
     std::string getPlayerName(sf::RenderWindow& a_window);
     bool draw();
 
-    std::string const& getInput() const;
+    std::string getInput() const;
 
 private:
     sf::RenderWindow& m_window;
@@ -30,3 +30,4 @@ private:
 };
 
 } // namespace arkanoid
+

@@ -201,6 +201,7 @@ bool Top10Screen::isTop10(int a_score, int a_time) const
     return false;
 }
 
+
 void Top10Screen::addTop10(int a_score, int a_time, const std::string& a_name)
 {
     Winner winner(a_score, a_time, a_name);
@@ -214,6 +215,7 @@ void Top10Screen::addTop10(int a_score, int a_time, const std::string& a_name)
         saveToFile();
     }
 }
+
 
 void Top10Screen::sortScores()
 {

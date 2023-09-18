@@ -2,10 +2,10 @@
 
 #include <SFML/Graphics.hpp>
 
+#include "screen.hpp"
 #include "game_screen.hpp"
 #include "menu_screen.hpp"
 #include "top10_screen.hpp"
-#include "screen.hpp"
 #include "input_screen.hpp"
 
 namespace arkanoid {
@@ -21,13 +21,11 @@ public:
 
     void processEvents();
     void run();
+	void setScreen(ScreenState* a_newScreen);
 
 private:
     sf::RenderWindow m_window;
-    GameScreen m_gameScreen;
-    MenuScreen m_menuScreen;
-    Top10Screen m_top10Screen;
-    InputScreen m_inputScreen;
+	ScreenState* m_currentScreen;
 };
 
 } // arkanoid

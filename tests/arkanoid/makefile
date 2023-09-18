@@ -25,14 +25,14 @@ OBJECTS = $(SOURCES_DIR)/ball.cpp \
 		  $(SOURCES_DIR)/winner.cpp \
 		  $(SOURCES_DIR)/font.cpp \
 
-SOURCE = utest.cpp $(OBJECTS) 
+SOURCE = utest.cpp $(OBJECTS)
 TARGET = utest
 
 all: $(TARGET)
 
 utest : $(SOURCE)
 
-check : $(TARGET) 
+check : $(TARGET)
 	@./$(TARGET) -v
 
 recheck: clean check

@@ -104,7 +104,7 @@ bool InputScreen::draw()
 	return end;
 }
 
-std::string const& InputScreen::getInput() const {
+std::string InputScreen::getInput() const {
     return m_input;
 }
 

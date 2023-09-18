@@ -2,9 +2,8 @@ adaya 600 0
 yahel 600 0
 hadar 600 0
 or 600 0
-adaya 600 0
 tom 600 95
 aviya 600 1028
 adaya 90 2631
-adaya 90 2657
-
+aa11 90 12293
+hhh22 90 22805
