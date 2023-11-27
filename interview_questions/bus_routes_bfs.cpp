@@ -66,6 +66,61 @@ int numBusesToDestination(std::vector<std::vector<int>>& routes, int source, int
     return -1;
 }
 
+
+//another way
+// void fillMap(const std::vector<std::vector<int>>& routes, std::unordered_map<int,std::vector<int>>& map)
+// {
+//     int size = static_cast<int>(routes.size());
+//     for(int bus = 0; bus < size; ++bus) {
+//         for(int station : routes[bus]) {
+//             map[station].push_back(bus);
+//         }
+//     }
+// }
+
+// int numBusesToDestination(std::vector<std::vector<int>>& routes, int source, int target) {
+//     if (source == target) return 0;
+
+//     std::unordered_map<int, std::vector<int>> stationToBuses;
+//     fillMap(routes, stationToBuses);
+
+//     std::queue<int> bfsQueue;
+//     bfsQueue.push(source);
+
+//     std::unordered_set<int> visitedStations;
+//     visitedStations.insert(source);
+
+//     int numOfBuses = 0;
+
+//     while (!bfsQueue.empty()) {
+//         int stationsAtCurrentLevel = bfsQueue.size();
+//         ++numOfBuses;
+//         //next loop ensures that all stations at the current level (reachable by a particular bus ride)
+//         //are explored before considering the next level (the next bus ride)
+//         for (int i = 0; i < stationsAtCurrentLevel; ++i) {
+//             int currentStation = bfsQueue.front();
+//             bfsQueue.pop();
+
+//             for (int bus : stationToBuses[currentStation]) {
+//                 for (int station : routes[bus]) {
+//                     if (station == target) {
+//                         return numOfBuses;
+//                     }
+
+//                     if (visitedStations.find(station) == visitedStations.end()) {
+//                         visitedStations.insert(station);
+//                         bfsQueue.push(station);
+//                     }
+//                 }
+//                 routes[bus].clear(); // Optimization: Clear processed routes
+//             }
+//         }
+//     }
+
+//     return -1;
+// }
+
+
 int main() {
     // Example 1
     std::vector<std::vector<int>> routes1 = {{1, 2, 7}, {3, 6, 7}};
@@ -78,6 +133,26 @@ int main() {
     int source2 = 15, target2 = 12;
     int result2 = numBusesToDestination(routes2, source2, target2);
     std::cout << "Example 2: " << result2 << std::endl;
+
+	// more Exmple
+	std::vector<std::vector<int>> routes3 = {{1,2,7}, {1,6,7}};
+    std::cout<<numBusesToDestination(routes3, 1, 6)<<"\n";
+
+    std::vector<std::vector<int>> routes4 = {{24}, {3,6,11,14,22}, {1,23,24}, {0,6,14}, {1,3,8,11,20}};
+    std::cout<<numBusesToDestination(routes4, 20, 8)<<"\n";
+
+    std::vector<std::vector<int>> routes5 = {
+        {1,9,12,20,23,24,35,38},
+        {10,21,24,31,32,34,37,38,43},
+        {10,19,28,37},
+        {8},
+        {14,19},
+        {11,17,23,31,41,43,44},
+        {21,26,29,33},
+        {5,11,33,41},
+        {4,5,8,9,24,44}
+    };
+    std::cout<<numBusesToDestination(routes5, 37, 28)<<"\n";
 
     return 0;
 }
